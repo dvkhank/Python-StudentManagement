@@ -1,0 +1,15 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+
+    {% if not current_user.is_authenticated %}
+        {% include 'admin/login.html' %}
+    {% else %}
+    <div class="container mt-5 pt-5">
+         <div class="alert alert-success alert-dismissible">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong><i class="fa-solid fa-bullhorn" style="font-size: 36px"></i></strong>
+            <span class="ml-4 h3">Welcome to your {{current_user.name}}!</span>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
