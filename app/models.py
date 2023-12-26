@@ -33,9 +33,13 @@ if __name__ == '__main__':
         # u = User(name='Admin', username='admin',
         #          password= str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
         #          user_role = UserRoleEnum.ADMIN)
-        u = User(name='Duong Van Khanh', username = 'khanh',
+        # u = User(name='Duong Van Khanh', username = 'khanh',
+        #          password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+        # )
+
+        u = User(name='Cao Ngoc Son', username='Son',
                  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
-                 )
+        )
 
         db.session.add(u)
         db.session.commit()
