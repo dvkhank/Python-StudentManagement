@@ -6,9 +6,9 @@ from flask_login import login_user
 
 
 
-@app.route("/")
+@app.route("/login")
 def index():
-    return render_template("index.html")
+    return render_template("user_login.html")
 
 @app.route('/about')
 def about_us():
