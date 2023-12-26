@@ -23,13 +23,9 @@ def user_login():
         if user:
             login_user(user)
             return redirect(url_for('index'))
-
     return render_template("user_login.html")
 
 
-@app.route('/about')
-def about_us():
-    return render_template('about-us.html')
 
 
 @app.route("/admin/login", methods=['post'])
