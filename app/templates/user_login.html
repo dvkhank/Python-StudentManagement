@@ -1,38 +1,19 @@
-{% extends 'admin/base.html' %}
+{% extends 'layout/base.html' %}
 {% block content %}
-<div class="auth-wrapper">
-    <div class="auth-content">
-        <div class="auth-bg">
-            <span class="r"></span>
-            <span class="r s"></span>
-            <span class="r s"></span>
-            <span class="r"></span>
-        </div>
-        <div class="card card-shadow rounded">
-            <div class="card-body" >
-                <div class="mb-4 text-center">
-                    <i class="fas fa-unlock-alt auth-icon mb-4"></i>
-                    <h3 class="font-weight-bold">Sign In</h3>
-                </div>
-                <form method="post" action="/admin/login">
-                    <div class="form-group">
-                        <span class="user-icon"><i class="fas fa-user"></i></span>
-                        <label>Username: </label>
-                        <input type="text" name="username" class="form-control" placeholder="Nhập tài khoản"
-                            minlength="8" maxlength="20" value="admin" />
-                    </div>
-                    <div class="position-relative form-group">
-                        <span class="password-icon"> <i class="fas fa-key"></i></span>
-                        <label>Password: </label>
-                        <input class="form-control" placeholder="Password" type="password" name="password"
-                            minlength="6" maxlength="8" value="123456">
-                    </div>
-                    <div class="form-group btn-center text-center mt-5">
-                        <button type="submit" name="login" class="btn btn-primary shadow-2 ">Log in</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+<form>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+               placeholder="Enter email">
     </div>
-</div>
-{% endblock content %}
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
