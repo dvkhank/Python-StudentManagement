@@ -166,10 +166,10 @@ strong {
 
 .navbar-brand {
   background: transparent;
-   height: 95px;
    border-radius: 12px;
    width: 180px;
    margin: 0 auto;
+   height: 140px;
 }
 
 .pcoded-header:before,
@@ -210,7 +210,7 @@ strong {
   display: -ms-inline-flexbox;
   display: inline-flex;
   float: left;
-  height: 70px;
+  height: 60px;
   text-align: center;
   width: 264px;
   margin-right: 0;

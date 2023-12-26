@@ -33,11 +33,17 @@
                          <a href="/user_register" class="btn btn-primary px-4">Register</a>
                     </li>
                 {% else %}
-                    <li class="nav-item">
-                        <span class="ml-4 h5">Welcome {{current_user.name}}!</span>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('user_logout') }}" class="nav-link">Logout</a>
+                    <li class="nav-item dropdown">
+                        <span class="ml-4 h5 ">Welcome {{current_user.name}}!
+                            <i class="fa fa-caret-down"></i>
+                        </span>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <a href="{{ url_for('user_logout') }}" class="dropdown-link">
+                                    <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 {% endif %}
             </ul>
