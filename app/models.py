@@ -27,12 +27,16 @@ class User(db.Model, UserMixin):
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
+        # db.create_all()
 
 
-        u = User(name='Admin', username='admin',
-                 password= str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
-                 user_role = UserRoleEnum.ADMIN)
+        # u = User(name='Admin', username='admin',
+        #          password= str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+        #          user_role = UserRoleEnum.ADMIN)
+        u = User(name='Duong Van Khanh', username = 'khanh',
+                 password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+                 )
+
         db.session.add(u)
         db.session.commit()
 
