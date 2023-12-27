@@ -58,6 +58,17 @@ class Class(Base2):
     subject_teacher_class = relationship('subject_teacher_class', backref='class', lazy=False)
     homeroom_teacher_id = Column(Integer, ForeignKey('teacher.id'), unique=True, nullable=False)
 
+        # u = User(name='Admin', username='admin',
+        #          password= str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+        #          user_role = UserRoleEnum.ADMIN)
+        # u = User(name='Duong Van Khanh', username = 'khanh',
+        #          password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+        # )
+
+        u = User(name='Cao Ngoc Son', username='Son',
+                 password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+        )
+
 
 class Grade(Base2):
     classes = relationship('class', backref='grade', lazy=True)
