@@ -65,9 +65,9 @@ class Class(Base2):
         #          password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
         # )
 
-        u = User(name='Cao Ngoc Son', username='Son',
-                 password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
-        )
+        # u = User(name='Cao Ngoc Son', username='Son',
+        #          password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
+        # )
 
 
 class Grade(Base2):
@@ -132,7 +132,8 @@ class TypeOfScore(Base2):
 
 if __name__ == '__main__':
     with app.app_context():
-        # db.create_all()
+        db.create_all()
+
         g1 = Grade(id=1, name='10')
         g2 = Grade(id=2, name='11')
         g3 = Grade(id=3, name='12')

@@ -20,14 +20,25 @@ def user_login():
             return redirect(url_for("index"))
     return render_template("user_login.html")
 
+
 @app.route("/user_register", methods=['post', 'get'])
 def user_register():
     return render_template("user_register.html")
+
 
 @app.route("/user_logout")
 def user_logout():
     logout_user()
     return redirect(url_for("user_login"))
+
+@app.route("/ministry/create_student_profile")
+def create_student():
+    return render_template("ministry/create_student.html")
+
+
+@app.route("/ministry/make_class")
+def make_class():
+    return render_template("ministry/make_class.html")
 
 
 @app.route("/admin/login", methods=['post'])
