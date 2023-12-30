@@ -1,7 +1,7 @@
 import enum
 import hashlib
 
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, Enum, DateTime, Double
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime, Double
 from sqlalchemy.orm import relationship
 from app import db, app
 from flask_login import UserMixin
@@ -19,105 +19,109 @@ class Base2(db.Model):
     name = Column(String(50), nullable=False, unique=True)
 
 
-class UserRoleEnum(enum.Enum):
-    USER = 1
-    ADMIN = 2
-
-
-# class Phone(Base):
-#     phone_number = Column(String(10), unique=True)
-#     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-#     phone_type = Column(String(50))
+class TypeOfPhone(Base2):
+    student = relationship('Student', backref='typeofphone', lazy=True)
+    teacher = relationship('Teacher', backref='typeofphone', lazy=True)
 
 
 class User(Base1, UserMixin):
+    __tablename__ = 'user'
     __abstract__ = True
     last_name = Column(String(50), nullable=False)
-    frist_name = Column(String(50), nullable=False)
-
+    first_name = Column(String(50), nullable=False)
+    date_of_birth = Column(DateTime, default=datetime.now())
+    email = Column(String(100), nullable=False)
+    phone = Column(String(10), nullable=False, unique=True)
+    phone_type = Column(Integer, ForeignKey(TypeOfPhone.id), nullable=False)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(50), nullable=False)
     avatar = Column(String(100),
                     default='https://cdn.tgdd.vn/Files/2016/05/04/824270/tim-hieu-cac-cong-nghe-man-hinh-dien-thoai-5.jpg')
     # phones = relationship(Phone, backref='user', lazy=True)
-    user_role = Column(Enum(UserRoleEnum), default=UserRoleEnum.USER)
     active = Column(Boolean, default=True)
+    permission = Column(Integer, ForeignKey('setofpermission.id'), nullable=False)
 
-    def __str__(self):
-        return self.name
+    # phones = relationship('Phone', backref='user')
 
 
 class Student(User):
-    student_class = relationship('student_class', backref='student', lazy=True)
+    __tablename__ = 'student'
+
+    student_class = relationship('Student_Class', backref='student', lazy=True)
 
 
 class Class(Base2):
+    __tablename__ = 'class'
+
     size = Column(Integer, nullable=False)
     grade_id = Column(Integer, ForeignKey('grade.id'), nullable=False)
-    student_class = relationship('student_class', backref='class', lazy=True)
-    subject_teacher_class = relationship('subject_teacher_class', backref='class', lazy=False)
+    student_class = relationship('Student_Class', backref='class', lazy=True)
+    subject_teacher_class = relationship('Subject_Teacher_Class', backref='class', lazy=False)
     homeroom_teacher_id = Column(Integer, ForeignKey('teacher.id'), unique=True, nullable=False)
-
-        # u = User(name='Admin', username='admin',
-        #          password= str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
-        #          user_role = UserRoleEnum.ADMIN)
-        # u = User(name='Duong Van Khanh', username = 'khanh',
-        #          password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
-        # )
-
-        u = User(name='Cao Ngoc Son', username='Son',
-                 password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()),
-        )
 
 
 class Grade(Base2):
-    classes = relationship('class', backref='grade', lazy=True)
+    __tablename__ = 'grade'
+
+    classes = relationship(Class, backref='grade', lazy=True)
 
 
 class Student_Class(Base1):
+    __tablename__ = 'student_class'
     student_id = Column(Integer, ForeignKey(Student.id), nullable=False)
     class_id = Column(Integer, ForeignKey(Class.id), nullable=False)
     semester_id = Column(Integer, ForeignKey('semester.id'), nullable=False)
-    score = relationship('score', backref='student_class',
+    score = relationship('Score', backref='student_class',
                          lazy=True)
 
 
 class Teacher(User):
+    __tablename__ = 'teacher'
     degree = Column(String(50), nullable=False)
-    homeroom_class = relationship('class', back_populates='homeroom_teacher', uselist=False)
-    subject_teacher = relationship('subject_teacher', backref='teacher', lazy=True)
-    head_subject = relationship('subject', backref='teacher', lazy=True)
+    homeroom_class = relationship('Class', backref='homeroom_teacher', uselist=False)
+    subject_teacher = relationship('Subject_Teacher', backref='teacher', lazy=True)
+    head_subject = relationship('Subject', backref='teacher', lazy=True)
 
 
 class Semester(Base2):
+    __tablename__ = 'semester'
+
     year_id = Column(Integer, ForeignKey('year.id'), nullable=False)
     students_classes = relationship(Student_Class, backref='semester', lazy=True)
 
 
 class Year(Base1):
+    __tablename__ = 'year'
+
     year = Column(Integer, nullable=False)
     semesters = relationship(Semester, backref='year', lazy=True)
 
 
 class Subject(Base2):
-    subject_teacher = relationship('subject_teacher', backref='subject', lazy=True)
+    __tablename__ = 'subject'
+
+    subject_teacher = relationship('Subject_Teacher', backref='subject', lazy=True)
     head_teacher = Column(Integer, ForeignKey(Teacher.id), nullable=False, unique=True)
 
 
 class Subject_Teacher(Base1):
+    __tablename__ = 'subject_teacher'
     subject_id = Column(Integer, ForeignKey(Subject.id), nullable=False)
     teacher_id = Column(Integer, ForeignKey(Teacher.id), nullable=False)
     date_joined = Column(DateTime, default=datetime.now())
-    subject_teacher_class = relationship('subject_teacher_class', backref='subject_teacher', lazy=False)
+    subject_teacher_class = relationship('Subject_Teacher_Class', backref='subject_teacher', lazy=False)
 
 
 class Subject_Teacher_Class(Base1):
+    __tablename__ = 'subject_teacher_class'
+
     subject_teacher_id = Column(Integer, ForeignKey(Subject_Teacher.id), nullable=False)
     class_id = Column(Integer, ForeignKey(Class.id), nullable=False)
-    score = relationship('score', backref='subject_teacher_class', lazy=True)
+    score = relationship('Score', backref='subject_teacher_class', lazy=True)
 
 
 class Score(Base1):
+    __tablename__ = 'score'
     student_class_id = Column(Integer, ForeignKey(Student_Class.id), nullable=False)
     subject_teacher_class_id = Column(Integer, ForeignKey(Subject_Teacher_Class.id), nullable=False)
     score = Column(Double)
@@ -130,31 +134,58 @@ class TypeOfScore(Base2):
     scores = relationship(Score, backref='typeofscore', lazy=True)
 
 
+class Permission(Base2):
+    __tablename__ = 'permission'
+
+    permission_setofpermission = relationship('Permission_SetOfPermission', backref='permission', lazy=True)
+
+
+class SetOfPermission(Base2):
+    __tablename__ = 'setofpermission'
+    student = relationship(Student, backref='set_of_permission', lazy=True)
+    teacher = relationship(Teacher, backref='set_of_permission', lazy=True)
+    permission_setofpermission = relationship('Permission_SetOfPermission', backref='setofpermission', lazy=True)
+
+
+class Permission_SetOfPermission(Base1):
+    __tablename__ = 'permission_setofpermission'
+    permission_id = Column(Integer, ForeignKey(Permission.id), nullable=False)
+    set_of_permission_id = Column(Integer, ForeignKey(SetOfPermission.id), nullable=False)
+
+
 if __name__ == '__main__':
     with app.app_context():
         # db.create_all()
-        g1 = Grade(id=1, name='10')
-        g2 = Grade(id=2, name='11')
-        g3 = Grade(id=3, name='12')
-        db.session.add_all([g1, g2, g3])
 
-        # st1 = Student(id=1, last_name='Duong', first_name='Van Khanh', username='khanh', password='khanh')
-        # st2 = Student(id=2, last_name='Dang', first_name='Trung Thang', username='thang', password='thang')
-        # st3 = Student(id=3, last_name='Cao', first_name='Ngoc Son', username='son', password='son')
-        # db.session.add_all([st1, st2, st3])
-        #
-        # s1 = Semester(id=1, name='Hocki 1')
-        #
-        # t1 = Teacher(id=1, degree='ThacSi', last_name='Duong', first_name='Huu Thanh', username='thanh',
-        #              password='thanh')
-        # t2 = Teacher(id=2, degree='ThacSi', last_name='Ho', first_name='Huong Thien', username='thien',
-        #              password='thien')
-        # t3 = Teacher(id=3, degree='ThacSi', last_name='Ho', first_name='Van Thanh', username='thanhh',
-        #              password='thanhh')
-        # db.session.add_all([t1, t2, t3, s1])
-        #
-        # c1 = Class(id=1, grade_id=1, homeroom_teacher_id=1, name='A1')
-        #
-        # sc1 = Student_Class(id=1, student_id=1, class_id=1, semester_id=1)
-        # db.session.add_all([c1, sc1])
+        per1 = Permission(name = 'Export a scoresheet')
+        per2 = Permission(name = 'Create a scoresheet')
+        per3 = Permission(name = 'Create a class')
+        per4 = Permission(name = 'Create a student')
+        per5 = Permission(name = 'Check Result')
+        db.session.add_all([per1, per2, per3, per4, per5])
+        # db.session.commit()
+
+        setper1 = SetOfPermission(name = 'Teacher')
+        setper2 = SetOfPermission(name = 'Student')
+        setper3 = SetOfPermission(name = 'Staff')
+        db.session.add_all([setper1, setper2, setper3])
+        # db.session.commit()
+
+
+        setper_per1 = Permission_SetOfPermission(permission_id = 1, set_of_permission_id = 1)
+        setper_per2 = Permission_SetOfPermission(permission_id = 2, set_of_permission_id = 1)
+        setper_per3 = Permission_SetOfPermission(permission_id = 3, set_of_permission_id = 3)
+        setper_per4 = Permission_SetOfPermission(permission_id = 4, set_of_permission_id = 3)
+        setper_per5 = Permission_SetOfPermission(permission_id = 5, set_of_permission_id = 2)
+        db.session.add_all([setper_per1, setper_per2, setper_per3, setper_per4, setper_per5 ])
+        # db.session.commit()
+
+        phone1 = TypeOfPhone(name='Mobile')
+        phone2 = TypeOfPhone(name='Telephone')
+        db.session.add_all([phone2, phone1])
+        # db.session.commit()
+
+        t1 = Teacher(last_name='Duong', first_name='Huu Thanh', date_of_birth='2000/12/06', email='thanhdt@gmail.com',
+                     phone='013525432', phone_type=1, username='thanh', password='thanh', degree = 'Master', permission = 1)
+        db.session.add(t1)
         db.session.commit()

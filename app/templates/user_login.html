@@ -6,15 +6,23 @@
         <form id="loginForm" action="user_login" method="POST">
             <h3>Welcome</h3>
             <div class="avatar">
-					<img src="https://www.tutorialrepublic.com/examples/images/avatar.png" alt="Avatar">
+                <img src="https://www.tutorialrepublic.com/examples/images/avatar.png" alt="Avatar">
             </div>
+<div class="form-holder">
+            <select class="w-100 p-1 text-center" name="permission">
+                {% for s in setofpermission %}
+                <option value="{{s.id}}">{{s.name}}</option>
+                {% endfor %}
+            </select>
+</div>
             <div class="form-holder">
-				<span class="user-icon"><i class="fas fa-user"></i></span>
+                <span class="user-icon"><i class="fas fa-user"></i></span>
                 <input name="username" type="text" class="form-control" placeholder="Username">
             </div>
 
+
             <div class="form-holder">
-                 <span class="password-icon"><i class="fa-solid fa-lock"></i></span>
+                <span class="password-icon"><i class="fa-solid fa-lock"></i></span>
                 <input name="password" type="password" class="form-control" placeholder="Password">
             </div>
 

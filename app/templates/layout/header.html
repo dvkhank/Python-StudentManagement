@@ -6,24 +6,11 @@
         </a>
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <ul class="navbar-nav font-weight-bold mx-auto py-0 center" style="align-items: center;">
+                {% for p in permission %}
                 <li class="nav-item">
-                    <a href="/" class="nav-link active">Home</a>
+                    <a href="/" class="nav-link active">{{p.Permission.name}}</a>
                 </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">Classes</a>
-                </li >
-                <li class="nav-item">
-                    <a href="" class="nav-link">Teachers</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">Contact</a>
-                </li>
+                {% endfor %}
                 {% if not current_user.is_authenticated %}
                     <li class="nav-item ml-4">
                         <a href="{{ url_for('user_login') }}" class="btn btn-primary px-4">Login</a>
@@ -34,7 +21,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item dropdown">
-                        <span class="ml-4 h5 ">Welcome {{current_user.name}}!
+                        <span class="ml-4 h5 ">Welcome <a href="/profile">{{current_user.last_name}} {{current_user.first_name}}!</a>
                             <i class="fa fa-caret-down"></i>
                         </span>
                         <ul class="dropdown-menu">
