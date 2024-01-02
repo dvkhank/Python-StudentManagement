@@ -35,6 +35,9 @@ def user_logout():
 def create_student():
     return render_template("ministry/create_student.html")
 
+@app.route("/teacher/make_scoreboard")
+def make_scoreboard():
+    return render_template("/teacher/make_scoreboard.html")
 
 @app.route("/ministry/make_class")
 def make_class():

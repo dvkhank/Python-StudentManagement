@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap');
 
+:root {
+    --primary: #1ddec4;
+    --light: #F0FBFC;
+    --dark: #000;
+    --white: #fff;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -27,6 +34,12 @@ a {
 
 :focus {
   outline: none;
+}
+
+
+
+.text-primary {
+    color: #1ddec4 !important;
 }
 
 .wrapper {
@@ -90,6 +103,10 @@ h3 {
   text-align: center;
   margin-bottom: 35px;
 }
+
+/*---------------------------------------------
+                 FORM
+---------------------------------------------*/
 
 .form-holder {
   position: relative;
@@ -207,45 +224,6 @@ button:hover:after {
   }
 }
 
-
-/**************************
-        Custom Navbar
-**************************/
-.header {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  border-radius: 0 0 100px 100px;
-}
-
-.navbar-brand {
-  background: transparent;
-   border-radius: 12px;
-   margin: 0 auto;
-   height: 160px;
-   margin-top: -5px;
-}
-
-.navbar-light .navbar-nav .nav-link {
-  padding: 8px 15px;
-  color: #00394f;
-  outline: none;
-  font-size: 16px
-}
-
-.navbar-light .navbar-nav .nav-link:hover,
-.navbar-light .navbar-nav .nav-link.active {
-  color: #1ddec4;
-}
-
-@media (max-width: 991.98px) {
-  .navbar-light .navbar-nav .nav-link {
-    padding: 10px 15px;
-  }
-}
-
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -275,6 +253,86 @@ button:hover:after {
   border-color: #60c7c1 ;
 }
 
+
+
+/*---------------------------------------------
+                 Section title
+---------------------------------------------*/
+.section-title {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.section-title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 80px);
+    height: 2px;
+    top: 4px;
+    left: -40px;
+    background: var(--primary);
+    z-index: -1;
+}
+
+.section-title::after {
+    position: absolute;
+    content: "";
+    width: calc(100% + 120px);
+    height: 2px;
+    bottom: 5px;
+    left: -60px;
+    background: var(--primary);
+    z-index: -1;
+}
+
+.section-title.text-start::before {
+    width: calc(100% + 40px);
+    left: 0;
+}
+
+.section-title.text-start::after {
+    width: calc(100% + 60px);
+    left: 0;
+}
+
+/*---------------------------------------------
+                 Navbar
+---------------------------------------------*/
+.header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.navbar-brand {
+  background: transparent;
+   border-radius: 12px;
+   margin: 0 auto;
+   height: 160px;
+   margin-top: -5px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  padding: 8px 15px;
+  color: #00394f;
+  outline: none;
+  font-size: 16px
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+  color: #1ddec4;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-light .navbar-nav .nav-link {
+    padding: 10px 15px;
+  }
+}
+
 .dropdown-menu {
   position: absolute;
   left: 59px;
@@ -286,7 +344,7 @@ button:hover:after {
   font-size: 16px;
   color: rgb(33, 37, 41);
   text-align: left;
-  background-color: #fff;
+  background-color: var(--white);
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
@@ -308,38 +366,127 @@ button:hover:after {
   display: block;
 }
 
-.section-title {
-  position: relative;
-  display: inline-block;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #17a2b8;
+
+.carousel-item img {
+    max-height: 800px;
+    background-size: cover !important;
 }
 
-.section-title span {
-  position: relative;
-  background: #ffffff;
-  z-index: 1;
+.carousel-control-prev-icon,
+ .carousel-control-next-icon{
+    height: 30px;
+    width: 40px;
 }
 
-.section-title::before {
-  position: absolute;
-  content: "";
-  top: 10px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #17a2b8;
+/*---------------------------------------------
+                 Service
+---------------------------------------------*/
+.service-item {
+    background: var(--light);
+    transition: .5s;
+    margin-bottom: 16px;
 }
 
-.team .team-social {
-  top: 0;
-  background: rgba(23, 162, 184, 0.8);
-  opacity: 0;
-  z-index: 1;
-  transition: .5s;
+.service-item:hover {
+    margin-top: -10px;
+    background: var(--primary);
 }
 
-.team:hover .team-social {
-  opacity: 1;
+.service-item * {
+    transition: .3s;
 }
+
+.service-item:hover * {
+    color: var(--light) !important;
+}
+
+/*---------------------------------------------
+                 Team
+---------------------------------------------*/
+.team-item img {
+    transition: .5s;
+}
+
+.team-item:hover img {
+    transform: scale(1.1);
+}
+
+
+/*---------------------------------------------
+                 Testimonial
+---------------------------------------------*/
+
+.testimonial .slick-dots {
+  padding: 20px 0;
+  left: 58%;
+  display: flex !important;
+  justify-content: center;
+}
+
+.testimonial .slick-dots button {
+  font-size: 0;
+  margin: 6px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--dark);
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+.testimonial .slick-dots .slick-active button {
+  background: var(--primary);
+  cursor: default;
+}
+
+/*---------------------------------------------
+                 Footer
+---------------------------------------------*/
+.footer .btn.btn-social {
+    margin-right: 5px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-weight: normal;
+    border: 1px solid #FFFFFF;
+    border-radius: 35px;
+    transition: .3s;
+}
+
+.footer .btn.btn-social:hover {
+    color: var(--primary);
+}
+
+.footer .form-control {
+    background-color: var(--white);
+    padding: 3px 15px 0px;
+}
+
+.footer .copyright {
+    padding: 25px 0;
+    font-size: 15px;
+    border-top: 1px solid rgba(256, 256, 256, .1);
+}
+
+.footer .copyright a {
+    color: var(--light);
+}
+
+.footer .footer-menu a {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid rgba(255, 255, 255, .1);
+}
+
+.footer .footer-menu a:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+}
+
+
+

@@ -1,4 +1,86 @@
 {% extends "layout/base.html" %}
 {% block title %} Ministry - Make a class list {% endblock %}
 {% block content %}
+<div class="container mt-2" style="padding-top: 100px">
+    <div class="row content">
+        <div class="col-xl-3 col-lg-3 col-sm-2">
+            <ul class="list-group">
+                <h1 class="text-center text-white bg-dark">MENU</h1>
+                <li class="list-group-item"><a class="text-dark" href="/ministry/create_student_profile">Create student
+                    profile</a></li>
+                <li class="list-group-item"><a class="text-dark" href="/ministry/make_class">Make a class list</a></li>
+                <li class="list-group-item"><a class="text-dark" href="">See class list</a></li>
+            </ul>
+        </div>
+        <div class="col-xl-9 col-sm-10">
+            <form class="row form-comment">
+                <div class="col-md-6 form-holder">
+                    <label class="form-label h6"><i class="fa-solid fa-file-signature"></i>Class</label>
+                    <input required type="text" placeholder="10" class="form-control p-0">
+                </div>
+                <div class="col-md-6 form-holder">
+                    <label class="form-label h6"><i class="fa-solid fa-signature"></i></i>Year</label>
+                    <input required type="text" placeholder="2021-2022" class="form-control p-0">
+                </div>
+                <div class="col-md-5 m-auto">
+                    <button type="submit text-center">
+                        Check
+                    </button>
+                </div>
+            </form>
+            <div class="container mt-3">
+                <div class="table-average" style="text-align: center">
+                   Make a class list
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">NĂM HỌC</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Lớp</th>
+                        <th scope="col">Sỉ số</th>
+                        <th scope="col">Giáo viên chủ nhiệm</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-class-border">
+                    <tr>
+                        <th scope="row" class="student-id center-line">1</th>
+                        <td colspan="1" class="class-name-id center-line">10A</td>
+                        <td class="score-oral center-line">40</td>
+                        <td class="score-oral">
+                            <div class="dropdown">
+                                <a
+                                        class="btn btn-secondary dropdown-toggle"
+                                        href="#"
+                                        role="button"
+                                        id="dropdownMenuLink"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                >
+                                    Giáo viên chủ nhiệm
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Ngoc Son</a></li>
+                                    <li><a class="dropdown-item" href="#">Trung Thang</a></li>
+                                    <li><a class="dropdown-item" href="#">Van Khanh</a></li>
+
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav aria-label="...">
+                    <ul class="pagination pagination-lg">
+                        <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
