@@ -1,0 +1,86 @@
+{% extends "layout/base.html" %}
+
+{% block title %} Contact {% endblock %}
+
+{% block content %}
+    <!-- Header Start -->
+    <div class="container-fluid py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Contact</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container contact">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Contact Us</h6>
+                <h1 class="mb-5">Contact For Any Query</h1>
+            </div>
+            <div class="row mt-5 g-4">
+                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="d-flex align-items-center mb-3 ml-5">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                            <i class="fa fa-map-marker-alt text-white"></i>
+                        </div>
+                        <div class="ms-3 ml-4">
+                            <h5 class="text-primary">Office</h5>
+                            <p class="mb-0">Open University</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3 ml-5">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                            <i class="fa fa-phone-alt text-white"></i>
+                        </div>
+                        <div class="ms-3 ml-4">
+                            <h5 class="text-primary">Mobile</h5>
+                            <p class="mb-0">+012 345 67890</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center ml-5">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                            <i class="fa fa-envelope-open text-white"></i>
+                        </div>
+                        <div class="ms-3 ml-4">
+                            <h5 class="text-primary">Email</h5>
+                            <p class="mb-0">info@@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.5s">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12 form-holder">
+                                <input required type="text" name="name" class="form-control p-0" placeholder="Your Name">
+                             </div>
+                            <div class="col-12 form-holder">
+                                <input required type="text" name="name" class="form-control p-0" placeholder="Your Email">
+                             </div>
+                             <div class="col-12 form-holder">
+                                <input required type="text" name="name" class="form-control p-0" placeholder="Subject">
+                             </div>
+                            <div class="col-12 form-holder">
+                                <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                             </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                            </div>
+                    </form>
+                </div>
+                <div class="col-lg-12 col-md-6 mt-4 wow fadeInUp" data-wow-delay="0.3s">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250832.84119205605!2d106.60814742812501!3d10.791146673314525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31753100099ce9ed%3A0xdb6079801f0735ea!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBN4bufIFRQLiBI4buTIENow60gTWluaCAoY8ahIHPhu58gMyk!5e0!3m2!1svi!2s!4v1704215013011!5m2!1svi!2s"
+                            width="1113" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+{% endblock %}

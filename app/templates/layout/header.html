@@ -14,37 +14,100 @@
                 </li>
                 <li class="nav-item">
                     <a href="/ministry/create_student_profile" class="nav-link">Ministry</a>
-                </li >
-                <li class="nav-item">
-                    <a href="/teacher/make_scoreboard" class="nav-link">Teachers</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">Contact</a>
+                    <a href="" class="nav-link">Teachers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact" class="nav-link">Contact</a>
                 </li>
                 {% if not current_user.is_authenticated %}
-                    <li class="nav-item ml-4">
-                        <a href="{{ url_for('user_login') }}" class="btn btn-primary px-4">Login</a>
-                    </li>
-                     </li>
-                    <li class="nav-item ml-2">
-                         <a href="/user_register" class="btn btn-primary px-4">Register</a>
-                    </li>
+                <li class="nav-item ml-4">
+                    <a href="{{ url_for('user_login') }}" class="btn btn-primary px-4">Login</a>
+                </li>
+                </li>
+                <li class="nav-item ml-2">
+                    <a href="/user_register" class="btn btn-primary px-4">Register</a>
+                </li>
                 {% else %}
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                         <span class="ml-4 h5 ">Welcome {{current_user.name}}!
                             <i class="fa fa-caret-down"></i>
                         </span>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <a href="{{ url_for('user_logout') }}" class="dropdown-link">
-                                    <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a href="{{ url_for('user_logout') }}" class="dropdown-link">
+                                <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {% endif %}
             </ul>
         </div>
+
+
+          <!-- navbar-moble-tablet -->
+    <div class="navbar__bars-btn hide-on-pc">
+        <label for="navbar-btn--input" class="navbar-btn">
+            <i class="fas fa-bars fa-2x"></i>
+        </label>
+        <input
+                type="checkbox"
+                hidden
+                name="btn"
+                id="navbar-btn--input"
+                class="navbar-input"
+        />
+        <label for="navbar-btn--input" class="navbar__overlay"></label>
+
+        <nav class="navbar__mobile">
+            <label for="navbar-btn--input" class="navbar__mobile-close">
+                <i class="fas fa-times fa-2x"></i>
+            </label>
+            <ul class="navbar-nav font-weight-bold mx-auto py-0 center" style="align-items: center;">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/ministry/create_student_profile" class="nav-link">Ministry</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">Teachers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact" class="nav-link">Contact</a>
+                </li>
+                {% if not current_user.is_authenticated %}
+                <li class="nav-item ml-4">
+                    <a href="{{ url_for('user_login') }}" class="btn btn-primary px-4">Login</a>
+                </li>
+                </li>
+                <li class="nav-item ml-2">
+                    <a href="/user_register" class="btn btn-primary px-4">Register</a>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                        <span class="ml-4 h5 ">Welcome {{current_user.name}}!
+                            <i class="fa fa-caret-down"></i>
+                        </span>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a href="{{ url_for('user_logout') }}" class="dropdown-link">
+                                <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <!-- End navbar-moble-tablet -->
     </nav>
 </div>
+
 <!-- Navbar End -->

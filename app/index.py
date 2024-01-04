@@ -8,6 +8,10 @@ from flask_login import login_user, logout_user, login_required, current_user
 def index():
     return render_template("index.html")
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
 @app.route("/user_login", methods=['post', 'get'])
 def user_login():
     if request.method.__eq__('POST'):
@@ -34,14 +38,6 @@ def user_logout():
 @app.route("/ministry/create_student_profile")
 def create_student():
     return render_template("ministry/create_student.html")
-
-@app.route("/teacher/make_scoreboard")
-def make_scoreboard():
-    return render_template("/teacher/make_scoreboard.html")
-
-@app.route("/ministry/make_class")
-def make_class():
-    return render_template("ministry/make_class.html")
 
 
 @app.route("/admin/login", methods=['post'])
