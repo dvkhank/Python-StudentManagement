@@ -6,32 +6,32 @@
         </a>
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <ul class="navbar-nav font-weight-bold mx-auto py-0 center" style="align-items: center;">
-                {% for p in permission %}
+                {% for l in list_of_permission %}
                 <li class="nav-item">
-                    <a href="/" class="nav-link active">{{p.Permission.name}}</a>
+                    <a href=" {{l.Permission.link}}" class="nav-link active">{{l.Permission.name}}</a>
                 </li>
                 {% endfor %}
                 {% if not current_user.is_authenticated %}
-                    <li class="nav-item ml-4">
-                        <a href="{{ url_for('user_login') }}" class="btn btn-primary px-4">Login</a>
-                    </li>
-                     </li>
-                    <li class="nav-item ml-2">
-                         <a href="/user_register" class="btn btn-primary px-4">Register</a>
-                    </li>
+                <li class="nav-item ml-4">
+                    <a href="{{ url_for('user_login') }}" class="btn btn-primary px-4">Login</a>
+                </li>
+                </li>
+                <li class="nav-item ml-2">
+                    <a href="/user_register" class="btn btn-primary px-4">Register</a>
+                </li>
                 {% else %}
-                    <li class="nav-item dropdown">
-                        <span class="ml-4 h5 ">Welcome <a href="/profile">{{current_user.last_name}} {{current_user.first_name}}!</a>
+                <li class="nav-item dropdown">
+                        <span class="ml-4 h5 ">Welcome <a href="/profile">{{current_user.first_name}}!</a>
                             <i class="fa fa-caret-down"></i>
                         </span>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <a href="{{ url_for('user_logout') }}" class="dropdown-link">
-                                    <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a href="{{ url_for('user_logout') }}" class="dropdown-link">
+                                <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {% endif %}
             </ul>
         </div>

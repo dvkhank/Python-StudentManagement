@@ -39,7 +39,7 @@ class User(Base1, UserMixin):
                     default='https://cdn.tgdd.vn/Files/2016/05/04/824270/tim-hieu-cac-cong-nghe-man-hinh-dien-thoai-5.jpg')
     # phones = relationship(Phone, backref='user', lazy=True)
     active = Column(Boolean, default=True)
-    permission = Column(Integer, ForeignKey('setofpermission.id'), nullable=False)
+    setofpermission = Column(Integer, ForeignKey('setofpermission.id'), nullable=False)
 
     # phones = relationship('Phone', backref='user')
 
@@ -81,6 +81,13 @@ class Teacher(User):
     homeroom_class = relationship('Class', backref='homeroom_teacher', uselist=False)
     subject_teacher = relationship('Subject_Teacher', backref='teacher', lazy=True)
     head_subject = relationship('Subject', backref='teacher', lazy=True)
+
+class Staff(User):
+    __tablename__ = 'staff'
+
+
+class Admin(User):
+    __tablename__ = 'admin'
 
 
 class Semester(Base2):
@@ -138,6 +145,7 @@ class Permission(Base2):
     __tablename__ = 'permission'
 
     permission_setofpermission = relationship('Permission_SetOfPermission', backref='permission', lazy=True)
+    link = Column(String(50), nullable=False)
 
 
 class SetOfPermission(Base2):
@@ -155,37 +163,63 @@ class Permission_SetOfPermission(Base1):
 
 if __name__ == '__main__':
     with app.app_context():
-        # db.create_all()
+        db.create_all()
 
-        per1 = Permission(name = 'Export a scoresheet')
-        per2 = Permission(name = 'Create a scoresheet')
-        per3 = Permission(name = 'Create a class')
-        per4 = Permission(name = 'Create a student')
-        per5 = Permission(name = 'Check Result')
-        db.session.add_all([per1, per2, per3, per4, per5])
+        per1 = Permission(name='Export a score sheet', link='export_scoresheet')
+        per2 = Permission(name='Create a score sheet', link='create_scoresheet')
+        per3 = Permission(name='Create a class', link='create_class')
+        per4 = Permission(name='Create a student', link='create_student')
+        per5 = Permission(name='Check results', link='check_results')
+        per6 = Permission(name='Manage users', link='manage_users')
+        per7 = Permission(name='Manage rules', link='manage_rules')
+        per8 = Permission(name='Manage subjects', link='manage_subjects')
+        per9 = Permission(name='Create a statistic ', link='create_statistic')
+
+        db.session.add_all([per1, per2, per3, per4, per5, per6, per7, per8, per9])
         # db.session.commit()
 
-        setper1 = SetOfPermission(name = 'Teacher')
-        setper2 = SetOfPermission(name = 'Student')
-        setper3 = SetOfPermission(name = 'Staff')
-        db.session.add_all([setper1, setper2, setper3])
+        setper1 = SetOfPermission(name='Teacher')
+        setper2 = SetOfPermission(name='Student')
+        setper3 = SetOfPermission(name='Staff')
+        setper4 = SetOfPermission(name='Admin')
+        db.session.add_all([setper1, setper2, setper3, setper4])
         # db.session.commit()
 
-
-        setper_per1 = Permission_SetOfPermission(permission_id = 1, set_of_permission_id = 1)
-        setper_per2 = Permission_SetOfPermission(permission_id = 2, set_of_permission_id = 1)
-        setper_per3 = Permission_SetOfPermission(permission_id = 3, set_of_permission_id = 3)
-        setper_per4 = Permission_SetOfPermission(permission_id = 4, set_of_permission_id = 3)
-        setper_per5 = Permission_SetOfPermission(permission_id = 5, set_of_permission_id = 2)
-        db.session.add_all([setper_per1, setper_per2, setper_per3, setper_per4, setper_per5 ])
+        setper_per1 = Permission_SetOfPermission(permission_id=1, set_of_permission_id=1)
+        setper_per2 = Permission_SetOfPermission(permission_id=2, set_of_permission_id=1)
+        setper_per3 = Permission_SetOfPermission(permission_id=3, set_of_permission_id=3)
+        setper_per4 = Permission_SetOfPermission(permission_id=4, set_of_permission_id=3)
+        setper_per5 = Permission_SetOfPermission(permission_id=5, set_of_permission_id=2)
+        setper_per6 = Permission_SetOfPermission(permission_id=6, set_of_permission_id=4)
+        setper_per7 = Permission_SetOfPermission(permission_id=7, set_of_permission_id=4)
+        setper_per8 = Permission_SetOfPermission(permission_id=8, set_of_permission_id=4)
+        setper_per9 = Permission_SetOfPermission(permission_id=9, set_of_permission_id=4)
+        db.session.add_all(
+            [setper_per1, setper_per2, setper_per3, setper_per4, setper_per5, setper_per6, setper_per7
+                , setper_per8, setper_per9])
         # db.session.commit()
 
         phone1 = TypeOfPhone(name='Mobile')
         phone2 = TypeOfPhone(name='Telephone')
         db.session.add_all([phone2, phone1])
-        # db.session.commit()
+        db.session.commit()
 
         t1 = Teacher(last_name='Duong', first_name='Huu Thanh', date_of_birth='2000/12/06', email='thanhdt@gmail.com',
-                     phone='013525432', phone_type=1, username='thanh', password='thanh', degree = 'Master', permission = 1)
+                     phone='013525432', phone_type=1, username='thanh', password='thanh', degree='Master', setofpermission=1)
         db.session.add(t1)
+
+        a1 = Admin(last_name='Duong', first_name='Van Khanh', date_of_birth='2003/12/06', email='khanhdv@gmail.com',
+                   phone='0123456789', phone_type=1, username='khanh', password='khanh', setofpermission=4)
+        db.session.add(a1)
+        a2 = Admin(last_name='Duong', first_name='Van Khang', date_of_birth='2003/11/06', email='khangdv@gmail.com',
+                   phone='0123456777', phone_type=1, username='khang', password='khang', setofpermission=4)
+        db.session.add(a2)
+
+        s1 = Student(last_name='Dang', first_name='Trung Thang', date_of_birth='2003/12/07', email='thangdt@gmail.com',
+                     phone='0123456788', phone_type=1, username='thang', password='thang', setofpermission=2)
+        db.session.add(s1)
+
+        st1 = Staff(last_name='Cao', first_name='Ngoc Son', date_of_birth='2000/12/05', email='soncn@gmail.com',
+                     phone='0123456787', phone_type=1, username='son', password='son', setofpermission=3)
+        db.session.add(st1)
         db.session.commit()
