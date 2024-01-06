@@ -11,7 +11,8 @@
             <div class="form-holder">
                 <select class="w-100 p-1 text-center" name="set_of_permission">
                     {% for s in set_of_permission %}
-                    <option value="{{s.id}}">{{s.name}}</option>
+
+                            <option value="{{ s.id }}">{{ s.name }}</option>
                     {% endfor %}
                 </select>
             </div>

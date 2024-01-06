@@ -24,22 +24,32 @@ def user_login():
         username = request.form.get('username')
         password = request.form.get('password')
         set_of_permission = request.form.get('set_of_permission')
-        print(set_of_permission)
         user = dao.auth_user(username=username, password=password, set_of_permission=set_of_permission)
         if user:
             login_user(user)
-            print(user.username)
             session['set_of_permission_id'] = user.setofpermission
-            return redirect(url_for("index"))
+            if user.setofpermission in (1, 2, 3):
+                return redirect(url_for("index"))
+            else:
+                return redirect('/admin')
         else:
             error_message = 'There is no user like that'
     set_of_permission = dao.load_setofpermission()
     return render_template("user_login.html", set_of_permission=set_of_permission, error_message=error_message)
 
 
-@app.route("/user_register", methods=['post', 'get'])
-def user_register():
-    return render_template("user_register.html")
+@app.route('/admin/login', methods=['post'])
+def admin_login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    session['set_of_permission_id'] = 4
+
+    user = dao.auth_user(username=username, password=password, set_of_permission='4')
+    if user:
+        login_user(user)
+        print(user)
+
+    return redirect('/admin')
 
 
 @app.route("/user_logout")
@@ -48,10 +58,6 @@ def user_logout():
     if 'set_of_permission_id' in session:
         del session['set_of_permission_id']
     return redirect(url_for("user_login"))
-
-
-
-
 
 
 # @app.route("/admin/login", methods=['post'])
@@ -63,36 +69,6 @@ def user_logout():
 #         login_user(user)
 #         print(admin)
 #     return redirect("/admin")
-
-
-@app.route("/manage_users", methods=['post', 'get'])
-def manage_users():
-    set_of_permission = dao.load_setofpermission()
-    type_of_phone = dao.load_phonetype()
-    if request.method.__eq__('POST'):
-
-        last_name = request.form.get("last_name")
-        first_name = request.form.get("first_name")
-        date_of_birth = request.form.get("date_of_birth")
-        email = request.form.get("email")
-        phone = request.form.get('phone')
-        phone_type = request.form.get('phone_type')
-        degree = request.form.get('degree')
-        username = request.form.get('username')
-        password = request.form.get("password")
-        set_of_permission_id = request.form.get('permission')
-        if (set_of_permission_id == 1):
-            degree = request.form.get('degree')
-            dao.add_user(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, email=email,
-                         phone=phone,
-                         phone_type=phone_type, degree=degree, username=username, password=password,
-                         set_of_permission_id=set_of_permission_id)
-        if (set_of_permission_id == 2):
-            dao.add_user(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, email=email,
-                         phone=phone,
-                         phone_type=phone_type, degree=degree, username=username, password=password,
-                         set_of_permission_id=set_of_permission_id)
-    return render_template('add_users.html', set_of_permission=set_of_permission, type_of_phone=type_of_phone)
 
 
 @app.route("/profile")

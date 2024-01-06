@@ -1,4 +1,4 @@
-from app.models import Teacher, Student, SetOfPermission, Permission_SetOfPermission, Permission, Admin, TypeOfPhone, \
+from app.models import Teacher, Student, SetOfPermission, Permission_SetOfPermission, Permission, Admin, \
     Staff
 from app import app, db
 import hashlib
@@ -28,19 +28,6 @@ def load_setofpermission():
     return SetOfPermission.query.all()
 
 
-def load_phonetype():
-    return TypeOfPhone.query.all()
-
-
-def add_user(last_name, first_name, date_of_birth, email, phone, phone_type, degree, username, password, permission):
-    with app.app_context():
-        if permission == '1':
-            teacher = Teacher(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, email=email,
-                              phone=phone, phone_type=phone_type,
-                              degree=degree, username=username, password=password, permission=permission)
-            db.session.add(teacher)
-            db.session.commit()
-
 
 def auth_user(username, password, set_of_permission):
     with app.app_context():
@@ -56,7 +43,9 @@ def auth_user(username, password, set_of_permission):
         if set_of_permission == '4':
             return Admin.query.filter(Admin.username.__eq__(username),
                                       Admin.password.__eq__(password)).first()
+
+
 def auth_admin(username, password):
     with app.app_context():
         return Admin.query.filter(Admin.username.__eq__(username),
-                                        Admin.password.__eq__(password)).first()
+                                  Admin.password.__eq__(password)).first()
