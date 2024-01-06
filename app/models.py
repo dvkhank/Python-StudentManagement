@@ -18,6 +18,9 @@ class Base2(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class TypeOfPhone(Base2):
     student = relationship('Student', backref='typeofphone', lazy=True)
@@ -42,11 +45,12 @@ class User(Base1, UserMixin):
     setofpermission = Column(Integer, ForeignKey('setofpermission.id'), nullable=False)
 
     # phones = relationship('Phone', backref='user')
+    def __str__(self):
+        return self.first_name
 
 
 class Student(User):
     __tablename__ = 'student'
-
     student_class = relationship('Student_Class', backref='student', lazy=True)
 
 
@@ -82,8 +86,12 @@ class Teacher(User):
     subject_teacher = relationship('Subject_Teacher', backref='teacher', lazy=True)
     head_subject = relationship('Subject', backref='teacher', lazy=True)
 
+
 class Staff(User):
     __tablename__ = 'staff'
+
+    def __str__(self):
+        return self.first_name
 
 
 class Admin(User):
@@ -102,6 +110,9 @@ class Year(Base1):
 
     year = Column(Integer, nullable=False)
     semesters = relationship(Semester, backref='year', lazy=True)
+
+    def __str__(self):
+        return self.year
 
 
 class Subject(Base2):
@@ -133,6 +144,9 @@ class Score(Base1):
     subject_teacher_class_id = Column(Integer, ForeignKey(Subject_Teacher_Class.id), nullable=False)
     score = Column(Double)
     typeofscore_id = Column(Integer, ForeignKey('typeofscore.id'), nullable=False)
+
+    def __str__(self):
+        return self.score
 
 
 class TypeOfScore(Base2):
@@ -205,7 +219,8 @@ if __name__ == '__main__':
         db.session.commit()
 
         t1 = Teacher(last_name='Duong', first_name='Huu Thanh', date_of_birth='2000/12/06', email='thanhdt@gmail.com',
-                     phone='013525432', phone_type=1, username='thanh', password='thanh', degree='Master', setofpermission=1)
+                     phone='013525432', phone_type=1, username='thanh', password='thanh', degree='Master',
+                     setofpermission=1)
         db.session.add(t1)
 
         a1 = Admin(last_name='Duong', first_name='Van Khanh', date_of_birth='2003/12/06', email='khanhdv@gmail.com',
@@ -220,6 +235,6 @@ if __name__ == '__main__':
         db.session.add(s1)
 
         st1 = Staff(last_name='Cao', first_name='Ngoc Son', date_of_birth='2000/12/05', email='soncn@gmail.com',
-                     phone='0123456787', phone_type=1, username='son', password='son', setofpermission=3)
+                    phone='0123456787', phone_type=1, username='son', password='son', setofpermission=3)
         db.session.add(st1)
         db.session.commit()

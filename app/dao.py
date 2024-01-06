@@ -56,3 +56,7 @@ def auth_user(username, password, set_of_permission):
         if set_of_permission == '4':
             return Admin.query.filter(Admin.username.__eq__(username),
                                       Admin.password.__eq__(password)).first()
+def auth_admin(username, password):
+    with app.app_context():
+        return Admin.query.filter(Admin.username.__eq__(username),
+                                        Admin.password.__eq__(password)).first()
