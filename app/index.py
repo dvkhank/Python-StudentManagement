@@ -54,6 +54,7 @@ def user_logout():
 
 
 
+
 # @app.route("/admin/login", methods=['post'])
 # def admin_login():
 #     username = request.form.get("username")
@@ -61,7 +62,6 @@ def user_logout():
 #     user = dao.auth_user(username=username, password=password, set_of_permission_id = 4)
 #     if admin:
 #         login_user(user)
-#         print(admin)
 #     return redirect("/admin")
 
 

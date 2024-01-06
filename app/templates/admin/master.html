@@ -49,15 +49,16 @@
     {% endblock %}
 </head>
 <body>
+{% include 'admin/navigation.html' %}
 {% block page_body %}
-        <nav class="pcoded-navbar">
+    <nav class="pcoded-navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
                 {% block brand %}
                 <a class="navbar-brand" href="{{ admin_view.admin.url }}">
                     <img class="navbar-brand" src="{{ url_for('static', filename='/images/logo-admin.png') }}" alt="logo"/>
                 </a>
-             {% endblock %}
+                {% endblock %}
             </div>
             {% block main_menu %}
             <div class="navbar-content scroll-div">
@@ -68,13 +69,15 @@
             {% endblock %}
         </div>
     </nav>
-    {% block messages %}
-    {{ layout.messages() }}
-    {% endblock %}
-    {# store the jinja2 context for form_rules rendering logic #}
-    {% set render_ctx = h.resolve_ctx() %}
+    <div class="container pt-5 mt-5">
+        {% block messages %}
+        {{ layout.messages() }}
+        {% endblock %}
+        {# store the jinja2 context for form_rules rendering logic #}
+        {% set render_ctx = h.resolve_ctx() %}
 
-    {% block body %}{% endblock %}
+        {% block body %}{% endblock %}
+    </div>
 {% endblock %}
 {% block tail_js %}
 <script src="{{ admin_static.url(filename='vendor/jquery.min.js', v='3.5.1') }}" type="text/javascript"></script>
