@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <!-- Meta -->
+    <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Quản lý học sinh" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Quản lý học sinh"/>
     <meta name="author" content="Khánh-Sơn-Thắng"/>
     <title>Title</title>
     <!-- Favicon icon -->
@@ -18,11 +18,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/style.css') }}">
 </head>
 <body>
-    {% block content %}
+<div class="row">
+    <div class="col-offset-4 col-8">
+        {% block content %}
 
-    {% endblock content %}
+        {% endblock content %}
+    </div>
+</div>
 
-    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
-    {% block javascripts %}{% endblock javascripts %}
+
+<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+{% block javascripts %}{% endblock javascripts %}
 </body>
 </html>
